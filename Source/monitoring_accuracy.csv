@@ -1,0 +1,3 @@
+Parameter, Actual Value, Expected Value, Accuracy (%)
+Valve Status, OPEN, OPEN, 100
+Pump Pressure, 1500 kPa, 1500 kPa, 100

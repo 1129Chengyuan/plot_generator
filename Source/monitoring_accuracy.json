@@ -1,0 +1,17 @@
+{
+    "monitoring_accuracy": [
+      {
+        "parameter": "Valve Status",
+        "actual_value": "OPEN",
+        "expected_value": "OPEN",
+        "accuracy": 100
+      },
+      {
+        "parameter": "Pump Pressure",
+        "actual_value": "1500 kPa",
+        "expected_value": "1500 kPa",
+        "accuracy": 100
+      }
+    ]
+  }
+  
