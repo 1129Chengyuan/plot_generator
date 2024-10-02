@@ -1,15 +1,18 @@
 import plotly.graph_objects as go
 import plotly.express as px
 import pandas as pd
+import numpy as np
 import json
 from datetime import datetime
 import os
+from sklearn.preprocessing import StandardScaler
+from sklearn.neighbors import KNeighborsClassifier
 
 # Load Control Input Speed data
 def load_control_input_speed(file_type='csv'):
     if file_type == 'csv':
         df = pd.read_csv('Source/control_input_speed.csv')
-        df.columns = df.columns.str.strip()  # Strip leading/trailing spaces from column names
+        df.columns = df.columns.str.strip()
         df['Command Issued (Timestamp)'] = pd.to_datetime(df['Command Issued (Timestamp)'])
         df['Control Action Executed (Timestamp)'] = pd.to_datetime(df['Control Action Executed (Timestamp)'])
     else:
@@ -24,7 +27,7 @@ def load_control_input_speed(file_type='csv'):
 def load_task_completion_time(file_type='csv'):
     if file_type == 'csv':
         df = pd.read_csv('Source/task_completion_time.csv')
-        df.columns = df.columns.str.strip()  # Strip leading/trailing spaces from column names
+        df.columns = df.columns.str.strip()
         df['Start Time'] = pd.to_datetime(df['Start Time'])
         df['End Time'] = pd.to_datetime(df['End Time'])
     else:
@@ -39,7 +42,7 @@ def load_task_completion_time(file_type='csv'):
 def load_equipment_activation(file_type='csv'):
     if file_type == 'csv':
         df = pd.read_csv('Source/equipment_activation.csv')
-        df.columns = df.columns.str.strip()  # Strip leading/trailing spaces from column names
+        df.columns = df.columns.str.strip()
         df['Time of Activation'] = pd.to_datetime(df['Time of Activation'])
     else:
         with open('Source/equipment_activation.json', 'r') as f:
@@ -52,7 +55,7 @@ def load_equipment_activation(file_type='csv'):
 def load_procedural_errors(file_type='csv'):
     if file_type == 'csv':
         df = pd.read_csv('Source/procedural_errors.csv')
-        df.columns = df.columns.str.strip()  # Strip leading/trailing spaces from column names
+        df.columns = df.columns.str.strip()
     else:
         with open('Source/procedural_errors.json', 'r') as f:
             data = json.load(f)
@@ -63,6 +66,7 @@ def load_procedural_errors(file_type='csv'):
 def load_monitoring_accuracy(file_type='csv'):
     if file_type == 'csv':
         df = pd.read_csv('Source/monitoring_accuracy.csv')
+        df.columns = df.columns.str.strip()
     else:
         with open('Source/monitoring_accuracy.json', 'r') as f:
             data = json.load(f)
@@ -71,28 +75,90 @@ def load_monitoring_accuracy(file_type='csv'):
 
 # Create visualizations
 def create_visualizations(control_speed_df, task_time_df, equipment_df, errors_df, accuracy_df):
-    # 1. Histogram: Control Input Speed
-    fig_control_speed = px.histogram(control_speed_df, x='control_input_speed',
-                                 title='Control Input Speed Distribution')
-
-    # 2. Bar Chart: Task Completion Time
-    fig_task_time = px.bar(task_time_df, x='task', y='task_completion_time',
-                       labels={'task_completion_time': 'Task Completion Time (Seconds)'},
-                       title='Task Completion Time')
+    # 1. Box Plot and Animation: Task Completion Time
+    fig_task_time = go.Figure()
+    for task in task_time_df['task'].unique():
+        task_data = task_time_df[task_time_df['task'] == task]
+        fig_task_time.add_trace(go.Box(y=task_data['task_completion_time'], name=task))
+    fig_task_time.update_layout(title='Task Completion Time Distribution', yaxis_title='Time (Seconds)')
     
-    # 3. Pie Chart: Correct Activation of Equipment
-    equipment_df['activation_status'] = equipment_df['activation_status'].map({0: 'Incorrect', 1: 'Correct'})
-    fig_equipment = px.pie(equipment_df, names='activation_status', title='Equipment Activation Status')
+    # Animation frames
+    frames = [go.Frame(data=[go.Box(y=task_time_df[task_time_df['task'] == task]['task_completion_time'], name=task)]) 
+              for task in task_time_df['task'].unique()]
+    fig_task_time.frames = frames
+    fig_task_time.update_layout(updatemenus=[dict(type='buttons', showactive=False,
+                                                  buttons=[dict(label='Play',
+                                                                method='animate',
+                                                                args=[None, dict(frame=dict(duration=500, redraw=True), fromcurrent=True)])])])
 
-    # 4. Bar Chart: Number of Procedural Errors
-    fig_errors = px.bar(errors_df, x='task', y='errors', title='Number of Procedural Errors per Task')
+    # 2. Pie Chart: Number of Procedural Errors
+    total_errors = errors_df['errors'].sum()
+    total_tasks = len(errors_df)
+    correct_procedures = total_tasks - total_errors
+    fig_errors = px.pie(names=['Correct Procedures', 'Errors'], 
+                        values=[correct_procedures, total_errors], 
+                        title='Proportion of Correct Procedures vs Errors')
 
-    # 5. Heatmap: Accuracy in Monitoring System Parameters
-    fig_accuracy = px.imshow(accuracy_df.pivot(index='parameter', columns='expected_value', values='accuracy'),
-                             title='Accuracy in Monitoring System Parameters',
-                             labels=dict(color="Accuracy (%)"))
+    # 3. Heat Map: Correct Activation of Equipment
+    equipment_pivot = equipment_df.pivot_table(values='activation_status', 
+                                               index='equipment', 
+                                               columns='activation_time', 
+                                               aggfunc='first')
+    fig_equipment = px.imshow(equipment_pivot, 
+                              title='Equipment Activation Status Over Time',
+                              labels=dict(x='Time', y='Equipment', color='Activation Status'))
 
-    return [fig_control_speed, fig_task_time, fig_equipment, fig_errors, fig_accuracy]
+    # 4. Box Plot and Animation: Command Execution Latency
+    control_speed_df['latency'] = (control_speed_df['control_executed'] - control_speed_df['command_issued']).dt.total_seconds()
+    fig_latency = go.Figure()
+    for event in control_speed_df['event'].unique():
+        event_data = control_speed_df[control_speed_df['event'] == event]
+        fig_latency.add_trace(go.Box(y=event_data['latency'], name=event))
+    fig_latency.update_layout(title='Command Execution Latency', yaxis_title='Latency (Seconds)')
+    
+    # Animation frames for latency
+    latency_frames = [go.Frame(data=[go.Box(y=control_speed_df[control_speed_df['event'] == event]['latency'], name=event)]) 
+                      for event in control_speed_df['event'].unique()]
+    fig_latency.frames = latency_frames
+    fig_latency.update_layout(updatemenus=[dict(type='buttons', showactive=False,
+                                                buttons=[dict(label='Play',
+                                                              method='animate',
+                                                              args=[None, dict(frame=dict(duration=500, redraw=True), fromcurrent=True)])])])
+
+    # 5. Classification and Animation: Control Input Speed
+    if len(control_speed_df) >= 3 and control_speed_df['control_input_speed'].nunique() >= 3:
+        scaler = StandardScaler()
+        X = scaler.fit_transform(control_speed_df[['control_input_speed']])
+        knn = KNeighborsClassifier(n_neighbors=min(3, len(control_speed_df)))
+        knn.fit(X, np.zeros(len(X)))  # Fit the model (labels don't matter for unsupervised)
+        control_speed_df['speed_category'] = knn.predict(X)
+        control_speed_df['speed_category'] = control_speed_df['speed_category'].map({0: 'Slow', 1: 'Medium', 2: 'Fast'})
+    else:
+        # Simple classification if we don't have enough data or variation for KNN
+        speed_median = control_speed_df['control_input_speed'].median()
+        if control_speed_df['control_input_speed'].nunique() == 1:
+            control_speed_df['speed_category'] = 'Medium'
+        else:
+            control_speed_df['speed_category'] = np.where(control_speed_df['control_input_speed'] < speed_median, 'Slow',
+                                                          np.where(control_speed_df['control_input_speed'] > speed_median, 'Fast', 'Medium'))
+    
+    fig_control_speed = px.scatter(control_speed_df, x='command_issued', y='control_input_speed', 
+                                   color='speed_category', title='Control Input Speed Classification')
+    
+    # Animation frames for control speed
+    speed_frames = [go.Frame(data=[go.Scatter(x=control_speed_df[control_speed_df['event'] == event]['command_issued'],
+                                              y=control_speed_df[control_speed_df['event'] == event]['control_input_speed'],
+                                              mode='markers',
+                                              marker=dict(color=control_speed_df[control_speed_df['event'] == event]['speed_category'].map({'Slow': 'blue', 'Medium': 'green', 'Fast': 'red'})),
+                                              name=event)]) 
+                    for event in control_speed_df['event'].unique()]
+    fig_control_speed.frames = speed_frames
+    fig_control_speed.update_layout(updatemenus=[dict(type='buttons', showactive=False,
+                                                      buttons=[dict(label='Play',
+                                                                    method='animate',
+                                                                    args=[None, dict(frame=dict(duration=500, redraw=True), fromcurrent=True)])])])
+
+    return [fig_task_time, fig_errors, fig_equipment, fig_latency, fig_control_speed]
 
 # Function to save plots as HTML
 def save_plots_as_html(figures, filenames):
@@ -122,11 +188,11 @@ def generate_and_save_visualizations(file_type='json'):
     figures = create_visualizations(control_speed_df, task_time_df, equipment_df, errors_df, accuracy_df)
     
     # Save plots as HTML
-    filenames = ['control_speed', 'task_time', 'equipment_activation', 'procedural_errors', 'monitoring_accuracy']
+    filenames = ['task_time', 'procedural_errors', 'equipment_activation', 'command_execution_latency', 'control_input_speed']
     save_plots_as_html(figures, filenames)
     
     print("Visualizations have been generated and saved as HTML files.")
 
 # Example usage
-# if __name__ == "__main__":
-#     generate_and_save_visualizations('json')
+if __name__ == "__main__":
+    generate_and_save_visualizations('json')
