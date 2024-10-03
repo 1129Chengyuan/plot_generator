@@ -1,17 +1,94 @@
 {
-    "monitoring_accuracy": [
-      {
-        "parameter": "Valve Status",
-        "actual_value": "OPEN",
-        "expected_value": "OPEN",
-        "accuracy": 100
-      },
-      {
-        "parameter": "Pump Pressure",
-        "actual_value": "1500 kPa",
-        "expected_value": "1500 kPa",
-        "accuracy": 100
-      }
-    ]
-  }
-  
+  "monitoring_accuracy": [
+    {
+      "parameter": "Sensor 1 Status",
+      "actual_value": "OPEN",
+      "expected_value": "CLOSED",
+      "accuracy": 95
+    },
+    {
+      "parameter": "Sensor 2 Status",
+      "actual_value": "CLOSED",
+      "expected_value": "OPEN",
+      "accuracy": 94
+    },
+    {
+      "parameter": "Sensor 3 Status",
+      "actual_value": "CLOSED",
+      "expected_value": "OPEN",
+      "accuracy": 94
+    },
+    {
+      "parameter": "Sensor 4 Status",
+      "actual_value": "OPEN",
+      "expected_value": "CLOSED",
+      "accuracy": 95
+    },
+    {
+      "parameter": "Sensor 5 Status",
+      "actual_value": "OPEN",
+      "expected_value": "OPEN",
+      "accuracy": 94
+    },
+    {
+      "parameter": "Valve Status",
+      "actual_value": "OPEN",
+      "expected_value": "OPEN",
+      "accuracy": 100
+    },
+    {
+      "parameter": "Pump Pressure",
+      "actual_value": "1500 kPa",
+      "expected_value": "1500 kPa",
+      "accuracy": 100
+    },
+    {
+      "parameter": "Flow Rate",
+      "actual_value": "25 m^3/h",
+      "expected_value": "30 m^3/h",
+      "accuracy": 83
+    },
+    {
+      "parameter": "Temperature",
+      "actual_value": "350 °C",
+      "expected_value": "350 °C",
+      "accuracy": 100
+    },
+    {
+      "parameter": "Cooling Tower Fan Speed",
+      "actual_value": "1200 RPM",
+      "expected_value": "1250 RPM",
+      "accuracy": 96
+    },
+    {
+      "parameter": "Water Level",
+      "actual_value": "5 meters",
+      "expected_value": "5.2 meters",
+      "accuracy": 98
+    },
+    {
+      "parameter": "System Voltage",
+      "actual_value": "230V",
+      "expected_value": "230V",
+      "accuracy": 100
+    },
+    {
+      "parameter": "Pump Efficiency",
+      "actual_value": "90%",
+      "expected_value": "95%",
+      "accuracy": 94
+    },
+    {
+      "parameter": "Turbine Speed",
+      "actual_value": "3000 RPM",
+      "expected_value": "3000 RPM",
+      "accuracy": 100
+    },
+    {
+      "parameter": "Generator Output",
+      "actual_value": "500 MW",
+      "expected_value": "510 MW",
+      "accuracy": 98
+    }
+  ]
+}

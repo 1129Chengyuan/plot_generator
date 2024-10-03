@@ -92,13 +92,27 @@ def create_visualizations(control_speed_df, task_time_df, equipment_df, errors_d
                                                                 args=[None, dict(frame=dict(duration=500, redraw=True), fromcurrent=True)])])])
 
     # 2. Pie Chart: Number of Procedural Errors
+    # Calculate total errors and correct procedures
     total_errors = errors_df['errors'].sum()
     total_tasks = len(errors_df)
-    correct_procedures = total_tasks - total_errors
-    fig_errors = px.pie(names=['Correct Procedures', 'Errors'], 
-                        values=[correct_procedures, total_errors], 
-                        title='Proportion of Correct Procedures vs Errors')
 
+    # Calculate the number of correct procedures (tasks with zero errors)
+    correct_procedures = (errors_df['errors'] == 0).sum()
+
+    # Prepare the pie chart
+    fig_errors = px.pie(
+        names=['Correct Procedures', 'Errors'], 
+        values=[correct_procedures, total_errors], 
+        title='Proportion of Correct Procedures vs Errors',
+        color_discrete_sequence=['#F44336', '#4CAF50']  # Green for correct, Red for errors
+    )
+
+    # Add annotation to show exact numbers
+    fig_errors.add_annotation(
+        text=f"Total Tasks: {total_tasks}<br>Correct: {correct_procedures}<br>Errors: {total_errors}",
+        xref="paper", yref="paper",
+        x=0.95, y=0.95, showarrow=False
+    )
     # 3. Heat Map: Correct Activation of Equipment
     equipment_pivot = equipment_df.pivot_table(values='activation_status', 
                                                index='equipment', 

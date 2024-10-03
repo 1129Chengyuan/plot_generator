@@ -1,13 +1,64 @@
 {
-    "errors": [
-      {
-        "task": "Start Pump",
-        "errors": 1
-      },
-      {
-        "task": "Verify Valve",
-        "errors": 0
-      }
-    ]
-  }
-  
+  "errors": [
+    {
+      "task": "Start Pump",
+      "errors": 0
+    },
+    {
+      "task": "Verify Valve",
+      "errors": 2
+    },
+    {
+      "task": "Stop Pump",
+      "errors": 2
+    },
+    {
+      "task": "Open Valve",
+      "errors": 3
+    },
+    {
+      "task": "Close Valve",
+      "errors": 1
+    },
+    {
+      "task": "Monitor Pressure",
+      "errors": 1
+    },
+    {
+      "task": "Check Flow Rate",
+      "errors": 4
+    },
+    {
+      "task": "Activate Cooling Fan",
+      "errors": 0
+    },
+    {
+      "task": "Verify Temperature",
+      "errors": 3
+    },
+    {
+      "task": "Adjust Voltage",
+      "errors": 2
+    },
+    {
+      "task": "Monitor Water Level",
+      "errors": 0
+    },
+    {
+      "task": "Shutdown Pump",
+      "errors": 1
+    },
+    {
+      "task": "Start Turbine",
+      "errors": 2
+    },
+    {
+      "task": "Stop Generator",
+      "errors": 0
+    },
+    {
+      "task": "Reset Alarm",
+      "errors": 1
+    }
+  ]
+}

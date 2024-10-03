@@ -25,9 +25,9 @@ def access_latest_output_folder():
 
 def access_latest_output_files():
     graph_paths = [
-        "control_speed.html",
+        "control_input_speed.html",
         "equipment_activation.html",
-        "monitoring_accuracy.html",
+        "command_execution_latency.html",
         "procedural_errors.html",
         "task_time.html"
     ]
