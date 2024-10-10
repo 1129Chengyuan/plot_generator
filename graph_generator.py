@@ -19,8 +19,8 @@ def load_control_input_speed(file_type='csv'):
         with open('Source/control_input_speed.json', 'r') as f:
             data = json.load(f)
         df = pd.DataFrame(data['events'])
-        df['command_issued'] = pd.to_datetime(df['command_issued'])
-        df['control_executed'] = pd.to_datetime(df['control_executed'])
+        df['command_issued'] = pd.to_datetime(df['command_issued'], format='%Y-%m-%dT%H:%M:%SZ')
+        df['control_executed'] = pd.to_datetime(df['control_executed'], format='%Y-%m-%dT%H:%M:%SZ')
     return df
 
 # Load Task Completion Time data
@@ -139,7 +139,7 @@ def create_visualizations(control_speed_df, task_time_df, equipment_df, errors_d
                                                               method='animate',
                                                               args=[None, dict(frame=dict(duration=500, redraw=True), fromcurrent=True)])])])
 
-    # 5. Classification and Animation: Control Input Speed
+    # 5. Control Input Speed with KNN Classification
     if len(control_speed_df) >= 3 and control_speed_df['control_input_speed'].nunique() >= 3:
         scaler = StandardScaler()
         X = scaler.fit_transform(control_speed_df[['control_input_speed']])
@@ -156,21 +156,10 @@ def create_visualizations(control_speed_df, task_time_df, equipment_df, errors_d
             control_speed_df['speed_category'] = np.where(control_speed_df['control_input_speed'] < speed_median, 'Slow',
                                                           np.where(control_speed_df['control_input_speed'] > speed_median, 'Fast', 'Medium'))
     
+    # Create scatter plot with Plotly
     fig_control_speed = px.scatter(control_speed_df, x='command_issued', y='control_input_speed', 
                                    color='speed_category', title='Control Input Speed Classification')
     
-    # Animation frames for control speed
-    speed_frames = [go.Frame(data=[go.Scatter(x=control_speed_df[control_speed_df['event'] == event]['command_issued'],
-                                              y=control_speed_df[control_speed_df['event'] == event]['control_input_speed'],
-                                              mode='markers',
-                                              marker=dict(color=control_speed_df[control_speed_df['event'] == event]['speed_category'].map({'Slow': 'blue', 'Medium': 'green', 'Fast': 'red'})),
-                                              name=event)]) 
-                    for event in control_speed_df['event'].unique()]
-    fig_control_speed.frames = speed_frames
-    fig_control_speed.update_layout(updatemenus=[dict(type='buttons', showactive=False,
-                                                      buttons=[dict(label='Play',
-                                                                    method='animate',
-                                                                    args=[None, dict(frame=dict(duration=500, redraw=True), fromcurrent=True)])])])
 
     return [fig_task_time, fig_errors, fig_equipment, fig_latency, fig_control_speed]
 
