@@ -1,8 +1,8 @@
 {
   "equipment_activation": [
     {
-      "equipment": "Pump 2A",
-      "activation_status": 1,
+      "equipment": "HV10A Valve",
+      "activation_status": 0,
       "activation_time": "2024-09-27T10:12:30Z"
     },
     {
@@ -11,114 +11,9 @@
       "activation_time": "2024-09-27T10:12:35Z"
     },
     {
-      "equipment": "Pump 2A",
+      "equipment": "Pump P-2A",
       "activation_status": 1,
-      "activation_time": "2024-09-27T10:12:50Z"
-    },
-    {
-      "equipment": "HV10A Valve",
-      "activation_status": 1,
-      "activation_time": "2024-09-27T10:12:55Z"
-    },
-    {
-      "equipment": "Pump 2A",
-      "activation_status": 0,
-      "activation_time": "2024-09-27T10:13:30Z"
-    },
-    {
-      "equipment": "HV10A Valve",
-      "activation_status": 0,
-      "activation_time": "2024-09-27T10:13:45Z"
-    },
-    {
-      "equipment": "Pump 2B",
-      "activation_status": 1,
-      "activation_time": "2024-09-27T10:14:00Z"
-    },
-    {
-      "equipment": "HV10B Valve",
-      "activation_status": 1,
-      "activation_time": "2024-09-27T10:14:05Z"
-    },
-    {
-      "equipment": "Circulation Fan A",
-      "activation_status": 1,
-      "activation_time": "2024-09-27T10:14:15Z"
-    },
-    {
-      "equipment": "Circulation Fan B",
-      "activation_status": 0,
-      "activation_time": "2024-09-27T10:14:25Z"
-    },
-    {
-      "equipment": "Pump 2B",
-      "activation_status": 0,
-      "activation_time": "2024-09-27T10:14:50Z"
-    },
-    {
-      "equipment": "HV10B Valve",
-      "activation_status": 0,
-      "activation_time": "2024-09-27T10:14:55Z"
-    },
-    {
-      "equipment": "Cooling Tower Fan 1",
-      "activation_status": 1,
-      "activation_time": "2024-09-27T10:15:05Z"
-    },
-    {
-      "equipment": "Cooling Tower Fan 2",
-      "activation_status": 0,
-      "activation_time": "2024-09-27T10:15:15Z"
-    },
-    {
-      "equipment": "Pump 2C",
-      "activation_status": 1,
-      "activation_time": "2024-09-27T10:16:30Z"
-    },
-    {
-      "equipment": "HV10C Valve",
-      "activation_status": 1,
-      "activation_time": "2024-09-27T10:16:35Z"
-    },
-    {
-      "equipment": "Pump 2C",
-      "activation_status": 0,
-      "activation_time": "2024-09-27T10:17:05Z"
-    },
-    {
-      "equipment": "Circulation Fan C",
-      "activation_status": 1,
-      "activation_time": "2024-09-27T10:17:10Z"
-    },
-    {
-      "equipment": "Cooling Tower Fan 3",
-      "activation_status": 1,
-      "activation_time": "2024-09-27T10:17:30Z"
-    },
-    {
-      "equipment": "Pump 3A",
-      "activation_status": 1,
-      "activation_time": "2024-09-27T10:18:45Z"
-    },
-    {
-      "equipment": "HV11A Valve",
-      "activation_status": 1,
-      "activation_time": "2024-09-27T10:18:50Z"
-    },
-    {
-      "equipment": "Pump 3A",
-      "activation_status": 0,
-      "activation_time": "2024-09-27T10:19:20Z"
-    },
-    {
-      "equipment": "HV11A Valve",
-      "activation_status": 0,
-      "activation_time": "2024-09-27T10:19:30Z"
-    },
-    {
-      "equipment": "Circulation Fan D",
-      "activation_status": 1,
-      "activation_time": "2024-09-27T10:20:05Z"
+      "activation_time": "2024-09-27T10:12:43Z"
     }
   ]
 }

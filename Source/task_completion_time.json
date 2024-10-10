@@ -1,106 +1,28 @@
 {
   "tasks": [
     {
-      "task": "Verify Valve and Start Pump",
+      "task": "Verify Pump 2A discharge valve is closed",
       "start_time": "2024-09-27T10:25:23Z",
       "end_time": "2024-09-27T10:32:16Z",
       "task_completion_time": 413
     },
     {
-      "task": "Verify Valve and Start Pump",
+      "task": "Start Pump 2A",
       "start_time": "2024-09-27T10:18:08Z",
       "end_time": "2024-09-27T10:29:00Z",
       "task_completion_time": 652
     },
     {
-      "task": "Verify Valve and Start Pump",
+      "task": "Verify Pump 2A discharge valve is open",
       "start_time": "2024-09-27T10:18:58Z",
       "end_time": "2024-09-27T10:38:35Z",
       "task_completion_time": 1177
     },
     {
-      "task": "Verify Valve and Start Pump",
+      "task": "Verify that HV10A is open",
       "start_time": "2024-09-27T10:28:33Z",
       "end_time": "2024-09-27T10:44:25Z",
       "task_completion_time": 952
-    },
-    {
-      "task": "Verify Valve and Start Pump",
-      "start_time": "2024-09-27T10:27:02Z",
-      "end_time": "2024-09-27T10:34:54Z",
-      "task_completion_time": 472
-    },
-    {
-      "task": "Verify Valve and Start Pump",
-      "start_time": "2024-09-27T10:17:06Z",
-      "end_time": "2024-09-27T10:31:44Z",
-      "task_completion_time": 878
-    },
-    {
-      "task": "Verify Valve and Start Pump",
-      "start_time": "2024-09-27T10:19:49Z",
-      "end_time": "2024-09-27T10:34:39Z",
-      "task_completion_time": 890
-    },
-    {
-      "task": "Verify Valve and Start Pump",
-      "start_time": "2024-09-27T10:13:26Z",
-      "end_time": "2024-09-27T10:31:39Z",
-      "task_completion_time": 1093
-    },
-    {
-      "task": "Verify Valve and Start Pump",
-      "start_time": "2024-09-27T10:17:15Z",
-      "end_time": "2024-09-27T10:34:24Z",
-      "task_completion_time": 1029
-    },
-    {
-      "task": "Verify Valve and Start Pump",
-      "start_time": "2024-09-27T10:15:45Z",
-      "end_time": "2024-09-27T10:28:29Z",
-      "task_completion_time": 764
-    },
-    {
-      "task": "Check Pressure and Open Valve",
-      "start_time": "2024-09-27T10:12:21Z",
-      "end_time": "2024-09-27T10:22:34Z",
-      "task_completion_time": 613
-    },
-    {
-      "task": "Check Flow Rate and Start Pump",
-      "start_time": "2024-09-27T10:20:15Z",
-      "end_time": "2024-09-27T10:32:55Z",
-      "task_completion_time": 760
-    },
-    {
-      "task": "Monitor Water Level",
-      "start_time": "2024-09-27T10:13:05Z",
-      "end_time": "2024-09-27T10:22:17Z",
-      "task_completion_time": 552
-    },
-    {
-      "task": "Check Temperature and Close Valve",
-      "start_time": "2024-09-27T10:11:45Z",
-      "end_time": "2024-09-27T10:20:30Z",
-      "task_completion_time": 525
-    },
-    {
-      "task": "Verify Valve and Shutdown Pump",
-      "start_time": "2024-09-27T10:16:22Z",
-      "end_time": "2024-09-27T10:29:33Z",
-      "task_completion_time": 791
-    },
-    {
-      "task": "Monitor Pressure and Verify Valve",
-      "start_time": "2024-09-27T10:14:48Z",
-      "end_time": "2024-09-27T10:25:35Z",
-      "task_completion_time": 647
-    },
-    {
-      "task": "Start Pump and Check Valve Status",
-      "start_time": "2024-09-27T10:10:01Z",
-      "end_time": "2024-09-27T10:23:45Z",
-      "task_completion_time": 824
     }
   ]
 }

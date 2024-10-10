@@ -1,64 +1,20 @@
 {
   "errors": [
     {
-      "task": "Start Pump",
-      "errors": 0
-    },
-    {
-      "task": "Verify Valve",
-      "errors": 2
-    },
-    {
-      "task": "Stop Pump",
-      "errors": 2
-    },
-    {
-      "task": "Open Valve",
-      "errors": 3
-    },
-    {
-      "task": "Close Valve",
+      "task": "Verify Pump 2A discharge valve is closed",
       "errors": 1
     },
     {
-      "task": "Monitor Pressure",
-      "errors": 1
-    },
-    {
-      "task": "Check Flow Rate",
-      "errors": 4
-    },
-    {
-      "task": "Activate Cooling Fan",
+      "task": "Start Pump 2A",
       "errors": 0
     },
     {
-      "task": "Verify Temperature",
-      "errors": 3
-    },
-    {
-      "task": "Adjust Voltage",
-      "errors": 2
-    },
-    {
-      "task": "Monitor Water Level",
+      "task": "Verify Pump 2A discharge valve is open",
       "errors": 0
     },
     {
-      "task": "Shutdown Pump",
-      "errors": 1
-    },
-    {
-      "task": "Start Turbine",
-      "errors": 2
-    },
-    {
-      "task": "Stop Generator",
+      "task": "Verify that HV10A is open",
       "errors": 0
-    },
-    {
-      "task": "Reset Alarm",
-      "errors": 1
     }
   ]
 }
